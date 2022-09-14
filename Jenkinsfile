@@ -1,21 +1,19 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Build the docker image') {
             steps {
-                echo 'building......artifact'
+                sh 'docker build -t manasa563/web-calculator:calculator .'
             }
         }
-        stage('Test') {
+        stage('run container') {
             steps {
-                echo 'testing..................'
+                sh 'docker container run -dt --name calculator manasa563/web-calculator:calculator'
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'deploying........................'
-            }
-        }
+        
+            
+        
     }
 }
 
