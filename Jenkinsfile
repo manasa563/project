@@ -1,19 +1,15 @@
 pipeline {
-    agent any
-    stages {
-        stage('Build the docker image') {
-            steps {
-                sh 'docker build -t manasa563/web-calculator:calculator .'
-            }
+	agent none
+  stages {
+  	stage('Maven Install') {
+    	agent {
+      	docker {
+        	image 'maven:3.8'
         }
-        stage('run container') {
-            steps {
-                sh 'docker container run -dt --name calculator manasa563/web-calculator:calculator'
-            }
-        }
-        
-            
-        
+      }
+      steps {
+      	sh 'mvn clean install'
+      }
     }
+  }
 }
-
